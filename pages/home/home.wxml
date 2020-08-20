@@ -1,2 +1,2 @@
 <!--pages/home/home.wxml-->
-<text>pages/home/home.wxml</text>
+<button class="btn_click" type="primary">点击查看设备数据</button>
