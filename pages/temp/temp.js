@@ -1,4 +1,4 @@
-// pages/home/home.js
+// pages/temp/temp.js
 Page({
 
   /**
@@ -6,19 +6,6 @@ Page({
    */
   data: {
 
-  },
-
-  //点击事件处理函数,跳转到数据查看区域
-  goDataPage:function(options){
-    wx.switchTab({
-      url: '../data/data',
-      success: (result) => {   
-          
-      },
-      fail: () => {},
-      complete: () => {}
-    });
-      
   },
 
   /**

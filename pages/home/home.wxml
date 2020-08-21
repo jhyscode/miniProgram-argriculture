@@ -1,2 +1,5 @@
 <!--pages/home/home.wxml-->
-<button class="btn_click" type="primary">点击查看设备数据</button>
+<view class="main">
+  <button bindtap="goDataPage" class="btn_click" type="primary">点击查看设备数据</button>
+</view>
+
