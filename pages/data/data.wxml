@@ -8,4 +8,6 @@
 <button bindtap="generateName" >
     生成设备名称
 </button>
-  
+<view wx:for="{{deviceNameList}}" wx:for-index="index" wx:for-item="item">
+ {{index}}: {{item}}
+</view>

@@ -27,8 +27,11 @@ Page({
     
     for ( var [key,value] of map) {
       console.log(key);
-
     }
+    this.data.deviceNameList = Array.from(map.keys());
+    this.setData({
+      deviceNameList: this.data.deviceNameList
+    })
   },
 
   /**
