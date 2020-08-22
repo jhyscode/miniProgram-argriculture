@@ -11,3 +11,5 @@
 <view wx:for="{{deviceNameList}}" wx:for-index="index" wx:for-item="item">
  {{index}}: {{item}}
 </view>
+
+http://api.heclouds.com/devices/614865746/datapoints?datastream_id=temperature&limit=100
