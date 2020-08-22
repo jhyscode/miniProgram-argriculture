@@ -21,10 +21,14 @@ Page({
   generateName:function(){
     var map = new Map();
     for (let index = 0; index < this.data.deviceList.length; index++) {
-      map.set(this.data.deviceList[index],"设备"+index)
-    }
-    
+      map.set("设备"+index, this.data.deviceList[index])
+    }   
     console.log(map);
+    
+    for ( var [key,value] of map) {
+      console.log(key);
+
+    }
   },
 
   /**
