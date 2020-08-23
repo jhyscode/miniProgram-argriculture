@@ -1,5 +1,6 @@
 // pages/data/data.js
-var API_KEY = 'IE9=kMQw=1eG7OqQkCUZWCsXAC8='
+var API_KEY = 'IE9=kMQw=1eG7OqQkCUZWCsXAC8=';
+const deviceId = '614865746';
 Page({
 
   /**
@@ -7,7 +8,9 @@ Page({
    */
   data: {
     deviceList:[],
-    deviceNameList:[]
+    deviceNameList:[],
+    latestTemp:'',
+    latestHumi:''
   },
 
   /**
@@ -34,11 +37,53 @@ Page({
     })
   },
 
+  //生成设备数据
+  generateDeviceData: function() {
+    var params = ['temperature','humidity'];
+    for (const key in params) {
+        const element = params[key];
+        var reqTask = wx.request({
+          url: "http://api.heclouds.com/devices/" + deviceId+ "/datapoints?datastream_id=" + element +"&limit=100",
+          data: {
+    
+          },
+          header: {
+          "content-type": 'application/x-www-form-urlencoded',
+          'api-key': API_KEY
+        },
+          method: 'GET',
+          success: (result) => {
+            if (element == 'temperature') {
+              this.setData({ 
+                latestTemp:result.data.data.datastreams[0].datapoints[0].value  
+            });
+            }
+            else if (element == 'humidity') {
+              this.setData({ 
+                latestHumi:result.data.data.datastreams[0].datapoints[0].value  
+            });
+            }
+            // this.setData({ 
+            //   latestHumi:result.data.data.datastreams[0].datapoints[0].value  
+            // });
+            console.log(result.data.data.datastreams[0].datapoints[0].value);
+          },
+          fail: () => {},
+          complete: () => {}
+        });
+      }
+    },
+  
+      
+ 
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
+  //生成设备号
   onReady: function () {
     var deviceLists = []
+    var deviceList = []
     wx.request({
       url: 'https://api.heclouds.com/devices',
       header : { 
@@ -51,12 +96,13 @@ Page({
         deviceLists = result.data.data.devices;
         // console.log(deviceLists);
         for (let index = 0; index < deviceLists.length; index++) {
-            this.data.deviceList[index] = deviceLists[index]['id'];
+          deviceList.push(deviceLists[index]['id']);
+          // this.data.deviceList[index] = deviceLists[index]['id'];
         }
-        console.log(this.data.deviceList);
+        // console.log(this.data.deviceList);
 
         this.setData({
-          deviceList: this.data.deviceList
+          deviceList: deviceList
         })
 
       },

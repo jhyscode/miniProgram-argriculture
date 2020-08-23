@@ -12,4 +12,47 @@
  {{index}}: {{item}}
 </view>
 
-http://api.heclouds.com/devices/614865746/datapoints?datastream_id=temperature&limit=100
+<view>
+    <button size="primary"  bindtap="generateDeviceData" type="default">获取单个设备数据</button>     
+</view>
+<view class="head">
+    <view>
+    温度数据：
+    </view>
+    <view>
+    {{latestTemp}}
+    </view>
+</view>
+
+<view class="head">
+    <view>
+    湿度数据：
+    </view>
+    <view>
+    {{latestHumi}}
+    </view>
+</view>
+ 
+<view>
+      <view class="weui_cell">
+          <view class="weui_cell_hd"><image src="../../image/clock/clock_blue.png"></image></view>
+          <view class="weui_cell_bd">
+              <view class="weui_cell_bd_p"> 温度 </view>
+          </view>
+          <view class="room_name">{{latestTemp}}°C</view>
+          <view class="with_arrow"></view>
+      </view>
+</view>
+
+<view>
+      <view class="weui_cell">
+          <view class="weui_cell_hd"><image src="../../image/clock/clock_blue.png"></image></view>
+          <view class="weui_cell_bd">
+              <view class="weui_cell_bd_p"> 湿度 </view>
+          </view>
+          <view class="room_name">{{latestHumi}}%</view>
+          <view class="with_arrow"></view>
+      </view>
+</view>
+
+<!--  http://api.heclouds.com/devices/614865746/datapoints?datastream_id=temperature&limit=100  -->
