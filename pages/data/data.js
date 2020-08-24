@@ -10,7 +10,9 @@ Page({
     deviceList:[],
     deviceNameList:[],
     latestTemp:'',
-    latestHumi:''
+    latestHumi:'',
+    latestTempSet:[],
+    latestHumiSet:[]
   },
 
   /**
@@ -37,7 +39,7 @@ Page({
     })
   },
 
-  //生成设备数据
+  //生成设备最新温度和湿度数据
   generateDeviceData: function() {
     var params = ['temperature','humidity'];
     for (const key in params) {
@@ -74,7 +76,58 @@ Page({
       }
     },
   
+    //生成最新温湿度数据系列(5条)
+    generateMultiData:function() {
+      var params = ['temperature','humidity'];
+      var latestTempSet = [];
+      var latestHumiSet = [];
+      for (const key in params) {
+          const element = params[key];
+          var reqTask = wx.request({
+            url: "http://api.heclouds.com/devices/" + deviceId+ "/datapoints?datastream_id=" + element +"&limit=100",
+            data: {
       
+            },
+            header: {
+            "content-type": 'application/x-www-form-urlencoded',
+            'api-key': API_KEY
+          },
+            method: 'GET',
+            success: (result) => {
+
+              console.log(result.data.data.datastreams[0].datapoints);
+              if (element == 'temperature') {
+                var tempList = result.data.data.datastreams[0].datapoints;
+                console.log(tempList);
+                for (var i = 0; i < 5; i++) {
+                  latestTempSet.push(tempList[i].value)
+                }
+                this.setData({
+                  latestTempSet: latestTempSet
+                })
+              //   this.setData({ 
+              //     latestTemp:result.data.data.datastreams[0].datapoints[0].value  
+              // });
+              }
+              else if (element == 'humidity') {
+                var humiList = result.data.data.datastreams[0].datapoints;
+                console.log(humiList);
+                for (var i = 0; i < 5; i++) {
+                  latestHumiSet.push(humiList[i].value)
+                }
+                this.setData({
+                  latestHumiSet: latestHumiSet
+                })
+
+              }
+             
+              //console.log(result.data.data.datastreams[0].datapoints[0].value);
+            },
+            fail: () => {},
+            complete: () => {}
+          });
+        }
+    },
  
 
   /**

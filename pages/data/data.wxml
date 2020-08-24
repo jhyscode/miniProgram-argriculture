@@ -5,12 +5,12 @@
 <view wx:for="{{deviceList}}" wx:for-index="index" wx:for-item="item">
  {{index}}: {{item}}
 </view>
-<button bindtap="generateName" >
+<!-- <button bindtap="generateName" >
     生成设备名称
 </button>
 <view wx:for="{{deviceNameList}}" wx:for-index="index" wx:for-item="item">
  {{index}}: {{item}}
-</view>
+</view> -->
 
 <view>
     <button size="primary"  bindtap="generateDeviceData" type="default">获取单个设备数据</button>     
@@ -53,6 +53,27 @@
           <view class="room_name">{{latestHumi}}%</view>
           <view class="with_arrow"></view>
       </view>
+</view>
+
+<view>
+    <button size="primary"  bindtap="generateMultiData" type="default">获取单个设备的多条温湿度数据</button>     
+</view>
+<view class="head">
+    <view>
+    温度数据集合：
+    </view>
+    <view>
+    {{latestTempSet}}
+    </view>
+</view>
+
+<view class="head">
+    <view>
+    湿度数据集合：
+    </view>
+    <view>
+    {{latestHumiSet}}
+    </view>
 </view>
 
 <!--  http://api.heclouds.com/devices/614865746/datapoints?datastream_id=temperature&limit=100  -->
