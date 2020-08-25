@@ -1,6 +1,12 @@
 // pages/data/data.js
 var API_KEY = 'IE9=kMQw=1eG7OqQkCUZWCsXAC8=';
 const deviceId = '614865746';
+
+var wxCharts = require('../../utils/wxcharts.js');
+var app = getApp();
+var columnChart = null;
+var lineChart = null;
+
 Page({
 
   /**
@@ -74,6 +80,86 @@ Page({
           complete: () => {}
         });
       }
+    },
+
+    //生成曲线函数
+    generateLine:function(){
+      var windowWidth = 320;
+      try {
+        var res = wx.getSystemInfoSync();
+        windowWidth = res.windowWidth;
+      } catch (e) {
+        console.error('getSystemInfoSync failed!');
+      }
+      lineChart = new wxCharts({     //定义一个wxCharts图表实例
+        canvasId: 'lineCanvas',     //输入wxml中canvas的id
+        type: 'line',       //图标展示的类型有:'line','pie','column','area','ring','radar'
+        categories: ['一', '二', '三', '四', '五'],    //模拟的x轴横坐标参数
+        animation: true,  //是否开启动画
+        series: [{   //具体坐标数据
+          name: '温度',  //名字
+          data: this.data.latestTempSet,  //数据点
+          format: function (val, name) {  //点击显示的数据注释
+            return val + 'mmHg';
+          }
+        }
+        ],
+        xAxis: {   //是否隐藏x轴分割线
+          disableGrid: true,
+        },
+        yAxis: {      //y轴数据
+          title: '温度(℃)',  //标题
+          format: function (val) {  //返回数值
+            return val.toFixed(2);
+          },
+          min: 0,   //最小值
+          max:100,   //最大值
+          gridColor: '#D8D8D8',
+        },
+        width: windowWidth,  //图表展示内容宽度
+        height: 200,  //图表展示内容高度
+        dataLabel: false,  //是否在图表上直接显示数据
+        dataPointShape: true, //是否在图标上显示数据点标志
+        extra: {
+          lineStyle: 'curve'  //曲线
+        },
+      });
+
+      //湿度曲线
+      lineChart = new wxCharts({     //定义一个wxCharts图表实例
+        canvasId: 'HumiLineCanvas',     //输入wxml中canvas的id
+        type: 'line',       //图标展示的类型有:'line','pie','column','area','ring','radar'
+        categories: ['一', '二', '三', '四', '五'],    //模拟的x轴横坐标参数
+        animation: true,  //是否开启动画
+        series: [{   //具体坐标数据
+          name: '湿度',  //名字
+          data: this.data.latestHumiSet,  //数据点
+          color:"#ff9900",
+          format: function (val, name) {  //点击显示的数据注释
+            return val + 'mmHg';
+          }
+        }
+        ],
+        xAxis: {   //是否隐藏x轴分割线
+          disableGrid: true,
+        },
+        yAxis: {      //y轴数据
+          title: '湿度(%)',  //标题
+          format: function (val) {  //返回数值
+            return val.toFixed(2);
+          },
+          min: 0,   //最小值
+          max:100,   //最大值
+          gridColor: '#D8D8D8',
+        },
+        width: windowWidth,  //图表展示内容宽度
+        height: 200,  //图表展示内容高度
+        dataLabel: false,  //是否在图表上直接显示数据
+        dataPointShape: true, //是否在图标上显示数据点标志
+        extra: {
+          lineStyle: 'curve'  //曲线
+        },
+      });
     },
   
     //生成最新温湿度数据系列(5条)

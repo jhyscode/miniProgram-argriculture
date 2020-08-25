@@ -77,3 +77,13 @@
 </view>
 
 <!--  http://api.heclouds.com/devices/614865746/datapoints?datastream_id=temperature&limit=100  -->
+
+<view>
+    <button size="primary"  bindtap="generateLine" type="default">获取数据趋势曲线</button>
+    <canvas canvas-id="lineCanvas" class="canvas"/>
+    <canvas canvas-id="HumiLineCanvas" class="canvas"/>
+    <!-- <view class="container">
+    <view class="title">
+    {{chartTitle}} -->
+</view>
+
