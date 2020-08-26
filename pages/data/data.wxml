@@ -5,6 +5,14 @@
 <view wx:for="{{deviceList}}" wx:for-index="index" wx:for-item="item">
  {{index}}: {{item}}
 </view>
+
+<view class='input_data'>
+    <view class='title_tip' style="font-weight:bold;">设备号：</view>
+    <view class='username_txt'>
+      <input type='text' class='user_txt' placeholder='请输入设备号'  placeholder-class='input_style' bindinput="bindDeviceInput" />
+    </view>
+</view>
+
 <!-- <button bindtap="generateName" >
     生成设备名称
 </button>

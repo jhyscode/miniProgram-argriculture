@@ -18,7 +18,8 @@ Page({
     latestTemp:'',
     latestHumi:'',
     latestTempSet:[],
-    latestHumiSet:[]
+    latestHumiSet:[],
+    inputDeviceId: ''
   },
 
   /**
@@ -26,6 +27,13 @@ Page({
    */
   onLoad: function (options) {
      
+  },
+
+  //输入设备号绑定函数
+  bindDeviceInput:function(e) {
+    this.setData({
+      inputDeviceId: e.detail.value
+    })
   },
 
   //生成设备名称函数
@@ -45,40 +53,57 @@ Page({
     })
   },
 
-  //生成设备最新温度和湿度数据
+  //生成单个设备最新温度和湿度数据
   generateDeviceData: function() {
     var params = ['temperature','humidity'];
     for (const key in params) {
         const element = params[key];
-        var reqTask = wx.request({
-          url: "http://api.heclouds.com/devices/" + deviceId+ "/datapoints?datastream_id=" + element +"&limit=100",
-          data: {
-    
+        if (this.data.deviceList.includes(this.data.inputDeviceId)) {
+          var reqTask = wx.request({
+            url: "http://api.heclouds.com/devices/" + this.data.inputDeviceId+ "/datapoints?datastream_id=" + element +"&limit=100",
+            data: {
+      
+            },
+            header: {
+            "content-type": 'application/x-www-form-urlencoded',
+            'api-key': API_KEY
           },
-          header: {
-          "content-type": 'application/x-www-form-urlencoded',
-          'api-key': API_KEY
-        },
-          method: 'GET',
-          success: (result) => {
-            if (element == 'temperature') {
-              this.setData({ 
-                latestTemp:result.data.data.datastreams[0].datapoints[0].value  
-            });
-            }
-            else if (element == 'humidity') {
-              this.setData({ 
-                latestHumi:result.data.data.datastreams[0].datapoints[0].value  
-            });
-            }
-            // this.setData({ 
-            //   latestHumi:result.data.data.datastreams[0].datapoints[0].value  
-            // });
-            console.log(result.data.data.datastreams[0].datapoints[0].value);
-          },
-          fail: () => {},
-          complete: () => {}
-        });
+            method: 'GET',
+            success: (result) => {
+              if (element == 'temperature') {
+                this.setData({ 
+                  latestTemp:result.data.data.datastreams[0].datapoints[0].value  
+              });
+              }
+              else if (element == 'humidity') {
+                this.setData({ 
+                  latestHumi:result.data.data.datastreams[0].datapoints[0].value  
+              });
+              }
+              // this.setData({ 
+              //   latestHumi:result.data.data.datastreams[0].datapoints[0].value  
+              // });
+              console.log(result.data.data.datastreams[0].datapoints[0].value);
+            },
+            fail: () => {},
+            complete: () => {}
+          });
+        }
+        else {
+          wx.showModal({
+            title: '提示',
+            confirmText: "知道了",
+            content: '输入设备号错误',
+            // success (res) {
+            //   if (res.confirm) {
+            //     console.log('用户点击确定')
+            //   } else if (res.cancel) {
+            //     console.log('用户点击取消')
+            //   }
+            // }
+          })
+        }
+        
       }
     },
 
@@ -170,7 +195,7 @@ Page({
       for (const key in params) {
           const element = params[key];
           var reqTask = wx.request({
-            url: "http://api.heclouds.com/devices/" + deviceId+ "/datapoints?datastream_id=" + element +"&limit=100",
+            url: "http://api.heclouds.com/devices/" + this.data.inputDeviceId+ "/datapoints?datastream_id=" + element +"&limit=100",
             data: {
       
             },

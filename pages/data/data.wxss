@@ -2,6 +2,9 @@
 .head{
     display: flex;
 }
+.input_data{
+  display: flex;
+}
 .weui_cell{
     position: relative;
     display: flex;
@@ -49,4 +52,7 @@
   .canvas {
     width: 95%;
     height: 400rpx;
+}
+.user_txt{
+  color:blue;
 }
