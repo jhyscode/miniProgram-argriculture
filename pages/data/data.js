@@ -205,14 +205,20 @@ Page({
           },
             method: 'GET',
             success: (result) => {
-
               console.log(result.data.data.datastreams[0].datapoints);
               if (element == 'temperature') {
                 var tempList = result.data.data.datastreams[0].datapoints;
                 console.log(tempList);
-                for (var i = 0; i < 5; i++) {
-                  latestTempSet.push(tempList[i].value)
+                if (tempList.length >= 5) {
+                  for (var i = 0; i < 5; i++) {
+                    latestTempSet.push(tempList[i].value)
+                  }
+                } else {
+                  for (var i = 0; i < tempList.length; i++) {
+                    latestTempSet.push(tempList[i].value)
+                  }
                 }
+                
                 this.setData({
                   latestTempSet: latestTempSet
                 })
@@ -223,8 +229,15 @@ Page({
               else if (element == 'humidity') {
                 var humiList = result.data.data.datastreams[0].datapoints;
                 console.log(humiList);
-                for (var i = 0; i < 5; i++) {
-                  latestHumiSet.push(humiList[i].value)
+
+                if (humiList.length >= 5) {
+                  for (var i = 0; i < 5; i++) {
+                    latestHumiSet.push(humiList[i].value)
+                  }
+                } else {
+                  for (var i = 0; i < humiList.length; i++) {
+                    latestHumiSet.push(humiList[i].value)
+                  }
                 }
                 this.setData({
                   latestHumiSet: latestHumiSet
