@@ -1,0 +1,6 @@
+<!--pages/test/test.wxml-->
+
+<view class="container log-list">
+   <text>{{ptxt}}</text>
+   <input bindinput='i_name' value="{{i_value}}" placeholder='请输入姓名'></input>
+</view>

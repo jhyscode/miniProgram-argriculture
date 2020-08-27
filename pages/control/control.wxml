@@ -1,0 +1,18 @@
+<!--pages/control/control.wxml-->
+<view class='input_data'>
+    <view class='title_tip' style="font-weight:bold;">设备号：</view>
+    <view class='username_txt'>
+      <input type='text' class='user_txt' placeholder='请先输入需要控制的设备号'  placeholder-class='input_style' bindinput="bindDeviceInput" />
+    </view>
+</view>
+
+<!-- <button bindtap="generateName" >
+    生成设备名称
+</button>
+<view wx:for="{{deviceNameList}}" wx:for-index="index" wx:for-item="item">
+ {{index}}: {{item}}
+</view> -->
+
+<view>
+    <button size="primary"  bindtap="generateDeviceData" type="default">发送设备离线命令</button>     
+</view>

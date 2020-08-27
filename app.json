@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/home/home",
+    "pages/control/control",
     "pages/data/data",
     "pages/index/index",
     "pages/temp/temp",
@@ -31,6 +32,12 @@
         "text": "数据",
         "iconPath": "icon/data.png",
         "selectedIconPath": "icon/data_select.png"
+      },
+      {
+        "pagePath": "pages/control/control",
+        "text": "控制",
+        "iconPath": "icon/control.png",
+        "selectedIconPath": "icon/control_select.png"
       }
     ]
   },

@@ -1,6 +1,6 @@
 <!--pages/data/data.wxml-->
 <view>
-    设备号:
+    已加入的设备号:
 </view>
 <view wx:for="{{deviceList}}" wx:for-index="index" wx:for-item="item">
  {{index}}: {{item}}
@@ -9,7 +9,7 @@
 <view class='input_data'>
     <view class='title_tip' style="font-weight:bold;">设备号：</view>
     <view class='username_txt'>
-      <input type='text' class='user_txt' placeholder='请输入设备号'  placeholder-class='input_style' bindinput="bindDeviceInput" />
+      <input type='text' class='user_txt' placeholder='请输入查看数据的设备号'  placeholder-class='input_style' bindinput="bindDeviceInput" />
     </view>
 </view>
 
@@ -23,7 +23,7 @@
 <view>
     <button size="primary"  bindtap="generateDeviceData" type="default">获取单个设备数据</button>     
 </view>
-<view class="head">
+<!-- <view class="head">
     <view>
     温度数据：
     </view>
@@ -39,7 +39,7 @@
     <view>
     {{latestHumi}}
     </view>
-</view>
+</view> -->
  
 <view>
       <view class="weui_cell">
