@@ -1,1 +1,5 @@
 /* pages/control/control.wxss */
+
+/* .input_data{
+  display: flex;
+} */

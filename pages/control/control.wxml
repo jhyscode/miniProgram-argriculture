@@ -1,4 +1,5 @@
 <!--pages/control/control.wxml-->
+<view style="white-space:pre-wrap"> </view>
 <view class='input_data'>
     <view class='title_tip' style="font-weight:bold;">设备号：</view>
     <view class='username_txt'>
